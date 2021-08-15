@@ -38,6 +38,6 @@ func Init() {
 	log.Println("Serving backend on port 3002...")
 	err := http.ListenAndServe(":3002", rt)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Api server not started")
 	}
 }

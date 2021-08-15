@@ -2,43 +2,22 @@ package main
 
 import (
 	"log"
-	"net/http"
-	"strings"
+	"sync"
 
 	backend "github.com/jjcapellan/go-proxy-example/backend"
+	frontend "github.com/jjcapellan/go-proxy-example/frontend"
 	proxy "github.com/jjcapellan/go-proxy-example/proxy"
 )
 
-// backend proxy implements Handler interface
-var backendProxy *proxy.Proxy
-
-var fsHandler http.Handler = http.FileServer(http.Dir("./frontend/public"))
-
-func routesHandler(w http.ResponseWriter, r *http.Request) {
-
-	if strings.Contains(r.URL.String(), "/api/") {
-		backendProxy.ServeHTTP(w, r)
-		return
-	}
-
-	fsHandler.ServeHTTP(w, r)
-}
-
 func main() {
-
-	err := proxy.Init()
-	if err != nil {
-		log.Fatal("Backend proxy not created")
-	}
-
-	backendProxy = &proxy.BackendProxy
+	var wg sync.WaitGroup
 
 	go backend.Init()
+	go frontend.Init()
+	go proxy.Init()
 
-	log.Println("Frontend listening on port 3000...")
-	http.HandleFunc("/", routesHandler)
-	err = http.ListenAndServe(":3000", nil)
-	if err != nil {
-		log.Fatal("Main server not started")
-	}
+	wg.Add(3)
+	wg.Wait()
+
+	log.Println("App terminated")
 }
