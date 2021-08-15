@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    list-style-type: none;
+}
+
+#bt{
+    font-size: large;
+    padding: 4px;
+}
+
+#container{
+    position: absolute;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    top: 20px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background-color: #ddd;
+}
+
+.data{
+    padding: 4px;
+    width: 50%;
+    height: 40%;
+    text-align: center;
+    background-color: #fff;
+}
+
+.server{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    height: 50%;
+    padding: 6px;
+    background-color: #bbb;
+}
