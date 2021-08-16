@@ -16,15 +16,15 @@ var backend *httputil.ReverseProxy
 var frontend *httputil.ReverseProxy
 var apiKey string
 
-func Init() {
+func Init(port string, portFrontend string, portBackend string) {
 	loadEnv()
 	apiKey = os.Getenv("API_KEY")
 	if apiKey == "" {
 		apiKey = "noKey"
 	}
 
-	createProxies()
-	setupServer()
+	createProxies(portFrontend, portBackend)
+	setupServer(port)
 }
 
 func loadEnv() {
@@ -34,25 +34,20 @@ func loadEnv() {
 	}
 }
 
-func createProxies() {
+func createProxies(portFrontend string, portBackend string) {
 	var err error
-	backend, err = newProxy("http://localhost:3002")
+	backend, err = newProxy("http://localhost:" + portBackend)
 	if err != nil {
 		log.Fatal("Proxy: Error creating backend handler")
 	}
-	frontend, err = newProxy("http://localhost:3001")
+	frontend, err = newProxy("http://localhost:" + portFrontend)
 	if err != nil {
 		log.Fatal("Proxy: Error creating frontend handler")
 	}
 }
 
-func setupServer() {
+func setupServer(port string) {
 	http.HandleFunc("/", routesHandler)
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
 
 	srv := &http.Server{
 		Addr:         ":" + port,

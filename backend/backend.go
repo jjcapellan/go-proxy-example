@@ -20,14 +20,14 @@ var apiKey string
 
 // INIT FUNCTIONS
 
-func Init() {
+func Init(port string) {
 	loadEnv()
 	apiKey = os.Getenv("API_KEY")
 	if apiKey == "" {
 		log.Fatal("Backend: error -> no api key found")
 	}
 
-	setupServer()
+	setupServer(port)
 }
 
 func loadEnv() {
@@ -37,11 +37,11 @@ func loadEnv() {
 	}
 }
 
-func setupServer() {
+func setupServer(port string) {
 	rt := mux.NewRouter().StrictSlash(true)
 	setupRoutes(rt)
-	log.Println("Backend server listening on port 3002")
-	err := http.ListenAndServe(":3002", rt)
+	log.Printf("Backend server listening on port %s", port)
+	err := http.ListenAndServe(":"+port, rt)
 	if err != nil {
 		log.Fatal("Api server not started")
 	}
