@@ -40,7 +40,7 @@ func loadEnv() {
 func setupServer() {
 	rt := mux.NewRouter().StrictSlash(true)
 	setupRoutes(rt)
-	log.Println("Serving backend on port 3002...")
+	log.Println("Backend server listening on port 3002")
 	err := http.ListenAndServe(":3002", rt)
 	if err != nil {
 		log.Fatal("Api server not started")

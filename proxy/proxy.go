@@ -40,7 +40,7 @@ func createProxies() {
 	if err != nil {
 		log.Fatal("Proxy: Error creating backend handler")
 	}
-	frontend, err = newProxy("http://localhost:3001")
+	frontend, err = newProxy("http://0.0.0.0:3001")
 	if err != nil {
 		log.Fatal("Proxy: Error creating frontend handler")
 	}
@@ -61,7 +61,7 @@ func setupServer() {
 		WriteTimeout: 10 * time.Second,
 	}
 
-	log.Println("Proxy running on port:", port)
+	log.Println("Proxy server listening on port ", port)
 	err := srv.ListenAndServe()
 	if err != nil {
 		log.Fatal("Proxy: Error initializing server")
