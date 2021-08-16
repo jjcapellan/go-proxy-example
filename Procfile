@@ -1,1 +1,1 @@
-web:./bin/go-proxy-example
+web: ./bin/go-proxy-example
