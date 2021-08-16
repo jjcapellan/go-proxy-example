@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"sync"
 
 	backend "github.com/jjcapellan/go-proxy-example/backend"
@@ -16,8 +15,6 @@ func main() {
 	go frontend.Init()
 	go proxy.Init()
 
-	wg.Add(3)
+	wg.Add(1)
 	wg.Wait()
-
-	log.Println("App terminated")
 }
