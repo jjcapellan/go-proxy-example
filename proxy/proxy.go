@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/joho/godotenv"
 )
@@ -47,8 +48,21 @@ func createProxies() {
 
 func setupServer() {
 	http.HandleFunc("/", routesHandler)
-	log.Println("Proxy running on port 3000")
-	err := http.ListenAndServe(":3000", nil)
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	srv := &http.Server{
+		Addr:         ":" + port,
+		Handler:      nil,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	log.Println("Proxy running on port:", port)
+	err := srv.ListenAndServe()
 	if err != nil {
 		log.Fatal("Proxy: Error initializing server")
 	}
