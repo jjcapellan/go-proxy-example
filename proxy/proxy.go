@@ -40,7 +40,7 @@ func createProxies() {
 	if err != nil {
 		log.Fatal("Proxy: Error creating backend handler")
 	}
-	frontend, err = newProxy("http://0.0.0.0:3001")
+	frontend, err = newProxy("http://localhost:3001")
 	if err != nil {
 		log.Fatal("Proxy: Error creating frontend handler")
 	}
