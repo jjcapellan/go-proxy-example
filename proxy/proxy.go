@@ -30,7 +30,7 @@ func Init(port string, portFrontend string, portBackend string) {
 func loadEnv() {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Println("Backend: environment file not loaded")
+		log.Println("Proxy: environment file not loaded")
 	}
 }
 
