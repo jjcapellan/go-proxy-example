@@ -72,7 +72,7 @@ func newProxy(targetHost string) (*httputil.ReverseProxy, error) {
 }
 
 func routesHandler(w http.ResponseWriter, r *http.Request) {
-	if strings.Contains(r.URL.String(), "/api/") {
+	if strings.Index(r.URL.Path, "api/") == 1 {
 		r.Header.Set("x-api-key", apiKey)
 		backend.ServeHTTP(w, r)
 		return
