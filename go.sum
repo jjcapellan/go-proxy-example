@@ -1,4 +1,6 @@
 github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
 github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
+github.com/jjcapellan/jjc-reverse-proxy v0.1.0-alpha h1:NTmcs75ilSGgQR+mMRzsj81cdEDxPReyzfUoMUsyh6Y=
+github.com/jjcapellan/jjc-reverse-proxy v0.1.0-alpha/go.mod h1:RN+N3uTLjtSvTB/YbqullAZxa6Bx7MSSwLMtYIamSpA=
 github.com/joho/godotenv v1.3.0 h1:Zjp+RcGpHhGlrMbJzXTrZZPrWj+1vfm90La1wgB6Bhc=
 github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqxOKXbg=
