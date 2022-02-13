@@ -1,12 +1,9 @@
 package main
 
 import (
-	"log"
 	"os"
 	"strconv"
 	"sync"
-
-	"github.com/joho/godotenv"
 
 	backend "github.com/jjcapellan/go-proxy-example/backend"
 	frontend "github.com/jjcapellan/go-proxy-example/frontend"
@@ -19,11 +16,11 @@ var PORT_PROXY string // From environment
 var PORT_FRONTEND string
 var PORT_API string
 
-const API_ROUTE string = "/api"
+const ROUTE_API string = "api"
+const ROUTE_FRONTEND string = "/"
 
 func main() {
 
-	loadEnvironment()
 	setupPorts()
 
 	var wg sync.WaitGroup
@@ -32,21 +29,14 @@ func main() {
 	go backend.Init(PORT_API)
 	go frontend.Init(PORT_FRONTEND)
 
-	proxyConfig := getProxyConfig()
-	proxy.Setup(proxyConfig)
+	proxy.AddProxy(ROUTE_API, PORT_API)
+	proxy.AddProxy(ROUTE_FRONTEND, PORT_FRONTEND)
 	go func() {
 		defer wg.Done()
-		proxy.Start()
+		proxy.Start(PORT_PROXY)
 	}()
 
 	wg.Wait()
-}
-
-func loadEnvironment() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Println("Main: environment file not found")
-	}
 }
 
 func setupPorts() {
@@ -70,15 +60,4 @@ func getPortProxy() string {
 		port = os.Getenv("PORT")
 	}
 	return port
-}
-
-func getProxyConfig() proxy.Config {
-	c := proxy.Config{
-		PortProxy:    PORT_PROXY,
-		PortApi:      PORT_API,
-		PortFrontend: PORT_FRONTEND,
-		ApiRoute:     API_ROUTE,
-		ApiKey:       os.Getenv("API_KEY"),
-	}
-	return c
 }
