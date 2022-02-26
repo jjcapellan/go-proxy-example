@@ -35,7 +35,7 @@ func setupServer(port string) {
 
 func setupRoutes(rt *mux.Router) {
 	rt.HandleFunc("/api/ab", abHandler).Methods("GET")
-	rt.HandleFunc("/", homeHandler)
+	rt.HandleFunc("/api", homeHandler)
 }
 
 // Routes Handlers
